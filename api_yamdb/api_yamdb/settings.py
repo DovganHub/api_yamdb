@@ -11,7 +11,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+#test comment for new branch
 # Application definition
 
 INSTALLED_APPS = [
