@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
 from api.views import CategoryViewSet
+from django.urls import include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(
@@ -26,4 +28,6 @@ urlpatterns = [
     ),
     path('api/v1/categories/', CategoryViewSet),
 
+    #дописал
+    path('api/', include('api.urls')),
 ]
