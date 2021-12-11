@@ -158,10 +158,10 @@ class Test00UserRegistration:
 
         # Test confirmation code not sent to user after admin registers him
         assert len(outbox_after) == outbox_before_count, (
+            
             f'Проверьте, что при {request_type} запросе `{self.url_admin_create_user}` с валидными данными '
             f'от имени администратора, пользователю НЕ приходит email с кодом подтверждения'
         )
-
         new_user.delete()
 
     @pytest.mark.django_db(transaction=True)

@@ -11,7 +11,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-#test comment for new branch
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -21,6 +21,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
+    'rest_framework_simplejwt',
     'api',
     'reviews',
 ]
@@ -103,3 +106,30 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+
+AUTH_USER_MODEL = 'reviews.User'
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_PORT = 587
+
+EMAIL_USE_TLS = True
+
+ROLES = {
+    'ADMIN_ROLE': 'admin',
+    'USER_ROLE': 'user',
+    'MODERATOR_ROLE': 'moderator',
+}

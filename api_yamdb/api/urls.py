@@ -1,17 +1,42 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
-from .views import ReviewViewSet, CommentsViewSet
 from rest_framework.authtoken import views
+from rest_framework.routers import SimpleRouter
+
+from .views import (APIGetToken, APISignup, CategoryViewSet, CommentsViewSet,
+                    GenreViewSet, ReviewViewSet, TitleViewSet, UsersViewSet)
+
+router_v1 = SimpleRouter()
 
 app_name = 'api'
 
-router_v1 = DefaultRouter()
-router_v1.register(r'^titles/(?P<title_id>\d+)/reviews', ReviewViewSet, basename='review')
-router_v1.register(r'^titles/(?P<title_id>\d+)/reviews/(?P<review_id>\d+)/comments', CommentsViewSet, basename='comment')
+router_v1.register(r'titles/(?P<title_id>\d+)/reviews',
+                   ReviewViewSet, basename='reviews')
+router_v1.register(
+    r'titles/(?P<title_id>\d+)/reviews/(?P<review_id>\d+)/comments',
+    CommentsViewSet, basename='comments')
+router_v1.register(r'users',
+                   UsersViewSet, basename='users')
 
-#http://127.0.0.1:8000/api/v1/titles/{title_id}/reviews/{review_id}/comments/{comment_id}/
+router_v1.register(
+    'categories',
+    CategoryViewSet,
+    basename='сategories'
+)
+router_v1.register(
+    'genres',
+    GenreViewSet,
+    basename='genres'
+)
+router_v1.register(
+    'titles',
+    TitleViewSet,
+    basename='titles'
+)
+
 
 urlpatterns = [
-    path('v1/api-token-auth/', views.obtain_auth_token),
+    path('v1/auth/token/', APIGetToken.as_view(), name='get_token'),
     path('v1/', include(router_v1.urls)),
+    path('v1/api-token-auth/', views.obtain_auth_token, name='auth_token'),
+    path('v1/auth/signup/', APISignup.as_view(), name='signup')
 ]
