@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 def validate_username_me(value):
@@ -12,7 +11,7 @@ def validate_username_me(value):
 
 
 def validate_year(value):
-    now = datetime.now().year
+    now = timezone.now().year
     if value > now:
         raise ValidationError(
             'Этот год еще не начался')

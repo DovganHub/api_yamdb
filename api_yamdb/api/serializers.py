@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
-from reviews.models import Category, Comments, Genre, Review, Title, User
+
+from reviews.models import Category, Comment, Genre, Review, Title, User
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -128,4 +129,4 @@ class CommentsSerializer(serializers.ModelSerializer):
 
     class Meta:
         fields = '__all__'
-        model = Comments
+        model = Comment

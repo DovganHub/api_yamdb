@@ -1,8 +1,5 @@
-
 from random import choice
 
-from api.filters import TitleFilter
-from django.core.mail import EmailMessage
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -15,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
+
+from api.filters import TitleFilter
 from reviews.models import Category, Genre, Review, Title, User
 
 from .mixins import ModelMixinSet
@@ -25,6 +24,7 @@ from .serializers import (CategorySerializer, CommentsSerializer,
                           NotAdminSerializer, ReviewSerializer,
                           SignupSerializer, TitleReadSerializer,
                           TitleWriteSerializer, UsersSerializer)
+from .utils import send_email
 
 
 class CategoryViewSet(ModelMixinSet):
@@ -56,13 +56,6 @@ class TitleViewSet(ModelViewSet):
         if self.action in ('list', 'retrieve'):
             return TitleReadSerializer
         return TitleWriteSerializer
-
-
-def send_email(data):
-    email = EmailMessage(subject=data['email_subject'],
-                         body=data['email_body'],
-                         to=[data['to_email']])
-    email.send()
 
 
 class APISignup(APIView):
