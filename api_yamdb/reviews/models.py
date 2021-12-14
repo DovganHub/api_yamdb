@@ -3,7 +3,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from api_yamdb.settings import ROLES
-
 from .validators import validate_username_me, validate_year
 
 USER = 'user'
